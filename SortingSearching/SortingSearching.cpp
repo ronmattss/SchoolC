@@ -1,21 +1,123 @@
-// SortingSearching.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+// Activity: Binary Search			Date: 1/2/19
+// Name: Ron Matthew R. Rivera 
+// Course & Section: BSCS 1-1	
 
-#include "pch.h"
-#include <iostream>
+// Using DevC++
+#include <stdio.h>
 
-int main()
+// using selection sort to make sure the array is sorted before the sort
+void swap(int *xp, int *yp);
+void selectionSort(int arr[], int n);
+// declare the BinarySearch method with parameters: parameter 1 = int array[], parameter 2 = int target
+int BinarySearch(int _arrayToSearch[], int target);
+
+int main(void)
 {
-    std::cout << "Hello World!\n"; 
+
+	int arrSize = 10;
+	int unSorted[10];
+	// enter 10 values for the array
+	printf("Enter 10 values for the array \n");
+	for (int i = 0; i < arrSize; i++)
+	{
+		printf("Enter the value for element %d: ", i);
+		scanf_s(" %d", &unSorted[i]);
+	}
+	// sort the array to make sure the search will execute correctly
+	selectionSort(unSorted, arrSize);
+	int values[6] = { 0,1,2,3,4,5 };   // set an example values to search
+	int n = sizeof(unSorted) / sizeof(unSorted[0]);
+	int target;						  // declare an int var named target
+	printf("Search the value: ");
+	scanf_s("%d", &target);		      // prompt the user to input a number to search
+	int found = BinarySearch(unSorted, target);
+	//printf("Found: %d", found);
+
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+// Binary search Algorithm
+// parameter 1 is the array to search onto
+// parameter 2 is the target to search
+int BinarySearch(int _arrayToSearch[], int target)
+{
+	// declare arraySize as the size of _arrayToSearch
+	// declare variables first, loct, and found to 0
+	// declare last variable = to the arrayLength -1
+	// declare mid variable as the middle of the index of the array
+	int arraySize = sizeof(_arrayToSearch);
+	int first = 0;
+	int last = arraySize - 1;
+	int mid = (first + last) / 2;
+	int loct = 0;
+	int found = 0;
+
+	// loop the array while var first is <= last
+	while (first <= last)
+	{
+
+		if (target > _arrayToSearch[mid])
+		{
+			first = mid + 1;
+		}
+		else if (_arrayToSearch[mid] == target)
+		{
+			printf("value %d Found at location: %d\n", target, mid + 1);
+			// return 1 if value is fount in the array
+			return 1;
+		}
+		else
+		{
+			last = mid - 1;
+		}
+		mid = (first + last) / 2;
+
+	}
+	if (first > last)
+	{
+		printf("target not found!\n");
+	}
+	// returns 0 if no value is found in the array
+	return found;
+}
+
+// function to swap an array
+void swap(int *xp, int *yp)
+{
+	// using pointers to swap elements in an array
+	int temp = *xp;
+	*xp = *yp;
+	*yp = temp;
+}
+// function Selection Sort
+void selectionSort(int arr[], int n)
+{
+	int i, j, min_idx;
+
+	//  for each iteration move the i of unsorted array 
+	for (i = 0; i < n - 1; i++)
+	{
+		// Find the minimum element in the unsorted array 
+		min_idx = i;
+		for (j = i + 1; j < n; j++)
+			if (arr[j] < arr[min_idx])
+				min_idx = j;
+
+		// Swap the found minimum element with the first element 
+		swap(&arr[min_idx], &arr[i]);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
