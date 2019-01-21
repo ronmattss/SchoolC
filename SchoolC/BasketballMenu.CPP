@@ -65,7 +65,9 @@ int main(void)
 	    default:
 		{
 		    textcolor(RED);
-		    cprintf("INVALID INPUT");
+		    cprintf("                              INVALID INPUT");
+		    getch();
+		    main();
 		}
 	}
 return 0;
@@ -426,25 +428,29 @@ int BinarySearch(int _arrayToSearch[2][12], int target,int d)
 	// j = to the length of the array
 	int j = 12;
 	int looper= 0;
-
-for(int i = 0; i<j;i++)
-{
-
+	
 	if(target==0)
 	{
 		gotoxy(30,8);
 		textcolor(RED);
 		cprintf(" NO SCORE TABULATED");
 	}
-	else if (T1[d][i] == target)
-	{	gotoxy(20,17+i);
-		printf(" MVP of Team %d is Player %d with %d Points!",d+1, i + 1,target);
-	}
+	else
+	{
+		for(int i = 0; i<j;i++)
+		{	
+			if (T1[d][i] == target)
+			{
+				gotoxy(20,17+i);
+				printf(" MVP of Team %d is Player %d with %d Points!",d+1, i + 1,target);
+			}
 	
-}
+		}
+	}
 
 }
 
+// Draws a box
 void DrawBox(int pdelay)
 {
 	int lay =pdelay;
